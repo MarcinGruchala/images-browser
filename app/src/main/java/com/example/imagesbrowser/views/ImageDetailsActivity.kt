@@ -2,6 +2,7 @@ package com.example.imagesbrowser.views
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.bumptech.glide.Glide
 import com.example.imagesbrowser.R
 import com.example.imagesbrowser.databinding.ActivityImageDetailsBinding
 import com.example.imagesbrowser.models.ImagesListResponseItem
@@ -40,5 +41,6 @@ class ImageDetailsActivity : AppCompatActivity() {
                 item.download_url
             )
         }
+        Glide.with(this).load(item.download_url).into(binding.ivDetailedImage)
     }
 }
