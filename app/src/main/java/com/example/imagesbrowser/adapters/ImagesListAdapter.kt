@@ -7,9 +7,11 @@ import com.bumptech.glide.Glide
 import com.example.imagesbrowser.R
 import com.example.imagesbrowser.databinding.ItemImagesListBinding
 import com.example.imagesbrowser.models.ImagesListResponse
+import com.example.imagesbrowser.models.ImagesListResponseItem
 
 class ImagesListAdapter(
-    private val imagesDataArray: ImagesListResponse
+    private val imagesDataArray: ImagesListResponse,
+    private val itemClickListener: (ImagesListResponseItem) -> Unit
 ) : RecyclerView.Adapter<ImagesListAdapter.ImagesListViewHolder>()  {
 
     class ImagesListViewHolder(
@@ -38,6 +40,7 @@ class ImagesListAdapter(
             imagesDataArray[position].id.toInt()
         )
         Glide.with(holder.itemView).load(imagesDataArray[position].download_url).into(holder.binding.ivImage)
+        holder.itemView.setOnClickListener { itemClickListener(imagesDataArray[position]) }
     }
 
     override fun getItemCount() = imagesDataArray.size
