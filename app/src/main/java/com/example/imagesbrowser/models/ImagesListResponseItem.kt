@@ -1,5 +1,7 @@
 package com.example.imagesbrowser.models
 
+import java.io.Serializable
+
 data class ImagesListResponseItem(
     val author: String,
     val download_url: String,
@@ -7,4 +9,4 @@ data class ImagesListResponseItem(
     val id: String,
     val url: String,
     val width: Int
-)
+) : Serializable

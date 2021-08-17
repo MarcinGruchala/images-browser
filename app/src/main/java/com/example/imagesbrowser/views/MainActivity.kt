@@ -48,8 +48,9 @@ class MainActivity : AppCompatActivity() {
     private fun updateImagesList() {
         binding.rvImagesList.adapter = ImagesListAdapter(
             viewModel.imagesList.value!!,
-            itemClickListener = {
+            itemClickListener = { item ->
                 Intent(this, ImageDetailsActivity::class.java).also {
+                    it.putExtra("ITEM_DETAILS", item)
                     startActivity(it)
                 }
             }

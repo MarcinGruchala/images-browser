@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Images browser</string>
     <string name="tv_image_id">Image ID: %1$d</string>
+    <string name="tvAuthor">Author: %1$s</string>
+    <string name="tvWidth">Width: %1$d</string>
+    <string name="tvHeight">Height: %1$d</string>
+    <string name="tvDownloadUrl">Download url: %1$s</string>
 </resources>
