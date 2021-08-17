@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.imagesbrowser.R
 import com.example.imagesbrowser.databinding.ItemImagesListBinding
 import com.example.imagesbrowser.models.ImagesListResponse
 
@@ -32,6 +33,10 @@ class ImagesListAdapter(
         holder: ImagesListViewHolder,
         position: Int
     ) {
+        holder.binding.tvIDNumberItem.text = holder.itemView.context.getString(
+            R.string.tv_image_id,
+            imagesDataArray[position].id.toInt()
+        )
         Glide.with(holder.itemView).load(imagesDataArray[position].download_url).into(holder.binding.ivImage)
     }
 
