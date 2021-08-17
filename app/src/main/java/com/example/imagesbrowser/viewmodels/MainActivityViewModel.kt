@@ -14,6 +14,8 @@ class MainActivityViewModel @Inject constructor(
     private val repository: RepositoryImpl
 ) : ViewModel() {
 
+    var currentPageNumber =  0
+
     val imagesList: MutableLiveData<ImagesListResponse> by lazy {
         MutableLiveData<ImagesListResponse>()
     }
@@ -22,12 +24,18 @@ class MainActivityViewModel @Inject constructor(
         updateImagesList()
     }
 
-
-    private fun updateImagesList() {
-
+    fun updateImagesList() {
         viewModelScope.launch {
-            imagesList.value = repository.getImageList(1,20).body()
+            imagesList.value = repository.getImageList(getPageNumber(),20).body()
         }
+    }
 
+    private fun getPageNumber():Int {
+        if (currentPageNumber < 51) {
+            currentPageNumber += 1
+            return currentPageNumber
+        }
+        currentPageNumber = 0
+        return currentPageNumber
     }
 }

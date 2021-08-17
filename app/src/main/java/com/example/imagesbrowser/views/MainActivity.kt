@@ -25,15 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         setImagesList()
         setObservers()
-
-    }
-
-    private fun setObservers() {
-        val imageListObserver = Observer<ImagesListResponse> { list ->
-            Log.d(TAG, "Image list: ${viewModel.imagesList.value}")
-            updateImagesList()
-        }
-        viewModel.imagesList.observe(this, imageListObserver)
+        setClickListeners()
     }
 
     private fun setImagesList() {
@@ -44,8 +36,22 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    private fun setObservers() {
+        val imageListObserver = Observer<ImagesListResponse> { list ->
+            Log.d(TAG, "Image list: ${viewModel.imagesList.value}")
+            updateImagesList()
+        }
+        viewModel.imagesList.observe(this, imageListObserver)
+    }
+
     private fun updateImagesList() {
         binding.rvImagesList.adapter = ImagesListAdapter(viewModel.imagesList.value!!)
+    }
+
+    private fun setClickListeners() {
+        binding.btnRefreshList.setOnClickListener {
+            viewModel.updateImagesList()
+        }
     }
 
 
