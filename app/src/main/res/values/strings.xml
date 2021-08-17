@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Images browser</string>
+    <string name="tv_image_id">Image ID: %1$d</string>
 </resources>
