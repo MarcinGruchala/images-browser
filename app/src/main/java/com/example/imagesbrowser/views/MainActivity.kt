@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.imagesbrowser.adapters.ImagesListAdapter
 import com.example.imagesbrowser.viewmodels.MainActivityViewModel
 import com.example.imagesbrowser.databinding.ActivityMainBinding
 import com.example.imagesbrowser.models.ImagesListResponse
@@ -21,10 +23,30 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val imageListObserver = Observer<ImagesListResponse> { list ->
-            Log.d(TAG, "Image list: ${viewModel.imagesList.value}")
-        }
-        viewModel.imagesList.observe(this, imageListObserver)
+        setImagesList()
+        setObservers()
 
     }
+
+    private fun setObservers() {
+        val imageListObserver = Observer<ImagesListResponse> { list ->
+            Log.d(TAG, "Image list: ${viewModel.imagesList.value}")
+            updateImagesList()
+        }
+        viewModel.imagesList.observe(this, imageListObserver)
+    }
+
+    private fun setImagesList() {
+        binding.rvImagesList.layoutManager = LinearLayoutManager(
+            this,
+            LinearLayoutManager.VERTICAL,
+            false
+        )
+    }
+
+    private fun updateImagesList() {
+        binding.rvImagesList.adapter = ImagesListAdapter(viewModel.imagesList.value!!)
+    }
+
+
 }
