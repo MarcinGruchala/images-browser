@@ -7,4 +7,5 @@
     <string name="tvDownloadUrl">Download url: %1$s</string>
     <string name="tvLoading">Loading...</string>
     <string name="ivImageDescription">item image</string>
+    <string name="ivDetailedImageDescription">Detailed image</string>
 </resources>
