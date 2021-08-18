@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.imagesbrowser.models.DownloadingImagesStatus
 import com.example.imagesbrowser.models.ImageSize
 import com.example.imagesbrowser.models.ImagesListResponse
 import com.example.imagesbrowser.repository.RepositoryImpl
@@ -33,12 +34,17 @@ class MainActivityViewModel @Inject constructor(
         MutableLiveData<List<Bitmap>>()
     }
 
+    val downloadingImagesStatus: MutableLiveData<DownloadingImagesStatus> by lazy {
+        MutableLiveData<DownloadingImagesStatus>()
+    }
+
     init {
         fetchData()
     }
     fun fetchData() {
         viewModelScope.launch {
             Log.d("MainActivity", "Images download start")
+            downloadingImagesStatus.value = DownloadingImagesStatus.STARTED
             val response = repository.getImageList(getPageNumber(), 20)
             if (response.isSuccessful && response.body() != null ){
                 imagesListResponseBody.value = response.body()
@@ -72,6 +78,7 @@ class MainActivityViewModel @Inject constructor(
          job.join()
          imagesBitmapList.value = list
          Log.d("MainActivity", "Images download ended")
+         downloadingImagesStatus.value = DownloadingImagesStatus.ENDED
     }
 
     private fun getNewImageSize(width: Int, height: Int): ImageSize {
