@@ -1,16 +1,16 @@
 package com.example.imagesbrowser.views
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.imagesbrowser.adapters.ImagesListAdapter
-import com.example.imagesbrowser.viewmodels.MainActivityViewModel
 import com.example.imagesbrowser.databinding.ActivityMainBinding
-import com.example.imagesbrowser.models.ImagesListResponse
+import com.example.imagesbrowser.viewmodels.MainActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 private const val TAG = "MainActivity"
@@ -38,31 +38,32 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setObservers() {
-        val imageListObserver = Observer<ImagesListResponse> { list ->
-            Log.d(TAG, "Image list: ${viewModel.imagesList.value}")
-            updateImagesList()
+        val imageBitmapListObserver = Observer<List<Bitmap>> {
+            if (viewModel.imagesBitmapList.value != null) {
+                Log.d(TAG, "Image list: ${viewModel.imagesBitmapList.value}")
+                updateImagesList()
+            }
         }
-        viewModel.imagesList.observe(this, imageListObserver)
+        viewModel.imagesBitmapList.observe(this, imageBitmapListObserver)
     }
 
     private fun updateImagesList() {
         binding.rvImagesList.adapter = ImagesListAdapter(
-            viewModel.imagesList.value!!,
+            viewModel.imagesListResponseBody.value!!,
+            viewModel.imagesBitmapList.value!!,
             itemClickListener = { item ->
                 Intent(this, ImageDetailsActivity::class.java).also {
                     it.putExtra("ITEM_DETAILS", item)
                     startActivity(it)
                 }
             }
-
         )
     }
 
     private fun setClickListeners() {
         binding.btnRefreshList.setOnClickListener {
-            viewModel.updateImagesList()
+            viewModel.fetchData()
         }
     }
-
 
 }

@@ -1,5 +1,6 @@
 package com.example.imagesbrowser.adapters
 
+import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -11,6 +12,7 @@ import com.example.imagesbrowser.models.ImagesListResponseItem
 
 class ImagesListAdapter(
     private val imagesDataArray: ImagesListResponse,
+    private val imagesBitmapList: List<Bitmap>,
     private val itemClickListener: (ImagesListResponseItem) -> Unit
 ) : RecyclerView.Adapter<ImagesListAdapter.ImagesListViewHolder>()  {
 
@@ -35,11 +37,13 @@ class ImagesListAdapter(
         holder: ImagesListViewHolder,
         position: Int
     ) {
-        holder.binding.tvIDNumberItem.text = holder.itemView.context.getString(
-            R.string.tv_image_id,
-            imagesDataArray[position].id.toInt()
-        )
-        Glide.with(holder.itemView).load(imagesDataArray[position].download_url).into(holder.binding.ivImage)
+        holder.binding.apply {
+            tvIDNumberItem.text = holder.itemView.context.getString(
+                R.string.tv_image_id,
+                imagesDataArray[position].id.toInt()
+            )
+            ivImage.setImageBitmap(imagesBitmapList[position])
+        }
         holder.itemView.setOnClickListener { itemClickListener(imagesDataArray[position]) }
     }
 
