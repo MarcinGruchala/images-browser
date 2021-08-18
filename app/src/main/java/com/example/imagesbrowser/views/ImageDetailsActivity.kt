@@ -2,6 +2,8 @@ package com.example.imagesbrowser.views
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.content.ContextCompat
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.example.imagesbrowser.R
 import com.example.imagesbrowser.databinding.ActivityImageDetailsBinding
@@ -41,6 +43,19 @@ class ImageDetailsActivity : AppCompatActivity() {
                 item.download_url
             )
         }
-        Glide.with(this).load(item.download_url).into(binding.ivDetailedImage)
+        val loadingDrawable = CircularProgressDrawable(this)
+        loadingDrawable.strokeWidth = 10f
+        loadingDrawable.centerRadius = 50f
+        loadingDrawable.setColorSchemeColors(
+            ContextCompat.getColor(
+                this,
+                R.color.purple
+            )
+        )
+        loadingDrawable.start()
+        Glide.with(this)
+            .load(item.download_url)
+            .placeholder(loadingDrawable)
+            .into(binding.ivDetailedImage)
     }
 }
