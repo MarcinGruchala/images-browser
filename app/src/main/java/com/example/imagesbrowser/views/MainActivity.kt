@@ -1,5 +1,6 @@
 package com.example.imagesbrowser.views
 
+import android.app.Dialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
@@ -8,8 +9,10 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.imagesbrowser.R
 import com.example.imagesbrowser.adapters.ImagesListAdapter
 import com.example.imagesbrowser.databinding.ActivityMainBinding
+import com.example.imagesbrowser.models.DownloadingImagesStatus
 import com.example.imagesbrowser.viewmodels.MainActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -38,6 +41,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setObservers() {
+        val loadingDialog = Dialog(this).apply {
+            setContentView(R.layout.dialog_loading)
+            setCancelable(false)
+        }
+
         val imageBitmapListObserver = Observer<List<Bitmap>> {
             if (viewModel.imagesBitmapList.value != null && viewModel.imagesBitmapList.value!!.isNotEmpty()) {
                 Log.d(TAG, "Image list: ${viewModel.imagesBitmapList.value}")
@@ -45,6 +53,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
         viewModel.imagesBitmapList.observe(this, imageBitmapListObserver)
+
+        val downloadingImagesStatusObserver = Observer<DownloadingImagesStatus> { status ->
+            when(status) {
+                DownloadingImagesStatus.STARTED -> loadingDialog.show()
+                DownloadingImagesStatus.ENDED -> loadingDialog.dismiss()
+                else -> {}
+            }
+        }
+        viewModel.downloadingImagesStatus.observe(this,downloadingImagesStatusObserver)
     }
 
     private fun updateImagesList() {
