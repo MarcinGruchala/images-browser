@@ -4,7 +4,7 @@
     <string name="tvAuthor">Author: %1$s</string>
     <string name="tvWidth">Width: %1$d</string>
     <string name="tvHeight">Height: %1$d</string>
-    <string name="tvDownloadUrl">Download url: %1$s</string>
+    <string name="tvDownloadUrl">Download url: <u>%1$s</u> </string>
     <string name="tvLoading">Loading...</string>
     <string name="ivImageDescription">item image</string>
     <string name="ivDetailedImageDescription">Detailed image</string>
