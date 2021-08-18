@@ -9,47 +9,15 @@
         motion:duration="1000">
        <KeyFrameSet>
            <KeyAttribute
-               motion:motionTarget="@+id/tvImageIdDetails"
-               motion:framePosition="100"
-               android:alpha="0" />
-           <KeyAttribute
-               motion:motionTarget="@+id/tvImageIdDetails"
+               motion:motionTarget="@+id/cvImageDetails"
                motion:framePosition="50"
                android:alpha="0" />
            <KeyAttribute
-               motion:motionTarget="@+id/tvAuthor"
+               motion:motionTarget="@+id/cvImageDetails"
                motion:framePosition="100"
-               android:alpha="0" />
-           <KeyAttribute
-               motion:motionTarget="@+id/tvAuthor"
-               motion:framePosition="50"
-               android:alpha="0" />
-           <KeyAttribute
-               motion:motionTarget="@+id/tvHeight"
-               motion:framePosition="100"
-               android:alpha="0" />
-           <KeyAttribute
-               motion:motionTarget="@+id/tvHeight"
-               motion:framePosition="50"
-               android:alpha="0" />
-           <KeyAttribute
-               motion:motionTarget="@+id/tvWidth"
-               motion:framePosition="100"
-               android:alpha="0" />
-           <KeyAttribute
-               motion:motionTarget="@+id/tvWidth"
-               motion:framePosition="50"
-               android:alpha="0" />
-           <KeyAttribute
-               motion:motionTarget="@+id/tvUrl"
-               motion:framePosition="100"
-               android:alpha="0" />
-           <KeyAttribute
-               motion:motionTarget="@+id/tvUrl"
-               motion:framePosition="50"
                android:alpha="0" />
        </KeyFrameSet>
-        <OnSwipe motion:touchAnchorId="@+id/ivDetailedImage" />
+        <OnSwipe motion:touchAnchorId="@+id/cvDetailedImage" />
     </Transition>
 
     <ConstraintSet android:id="@+id/start">
@@ -58,51 +26,21 @@
     <ConstraintSet android:id="@+id/end">
         <Constraint
             motion:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
             motion:layout_constraintTop_toTopOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="8dp"
-            android:id="@+id/tvImageIdDetails" />
+            android:id="@+id/cvImageDetails" />
         <Constraint
-            motion:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            motion:layout_constraintTop_toBottomOf="@+id/tvImageIdDetails"
-            motion:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="8dp"
-            android:id="@+id/tvAuthor" />
-        <Constraint
-            motion:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            motion:layout_constraintTop_toBottomOf="@+id/tvAuthor"
-            motion:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="8dp"
-            android:id="@+id/tvWidth" />
-        <Constraint
-            motion:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            motion:layout_constraintTop_toBottomOf="@+id/tvWidth"
-            motion:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="8dp"
-            android:id="@+id/tvHeight" />
-        <Constraint
-            motion:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            motion:layout_constraintTop_toBottomOf="@+id/tvHeight"
-            motion:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="8dp"
-            android:id="@+id/tvUrl" />
-        <Constraint
+            android:id="@+id/cvDetailedImage"
             motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="0dp"
             android:layout_height="0dp"
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
-            android:id="@+id/ivDetailedImage"
             motion:layout_constraintTop_toTopOf="parent" />
     </ConstraintSet>
 </MotionScene>
