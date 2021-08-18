@@ -7,9 +7,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.FutureTarget
 import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.SimpleTarget
+import com.example.imagesbrowser.models.ImageSize
 import com.example.imagesbrowser.models.ImagesListResponse
 import com.example.imagesbrowser.repository.RepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -61,10 +60,11 @@ class MainActivityViewModel @Inject constructor(
          val list = mutableListOf<Bitmap>()
          val job = viewModelScope.launch(Dispatchers.IO) {
              for (item in imagesListResponseBody.value!!) {
+                 val newImageSize = getNewImageSize(item.width,item.height)
                  val bitmap = Glide.with(applicationContext)
                      .asBitmap()
                      .load(item.download_url)
-                     .apply(RequestOptions.overrideOf(item.width/4,item.height/4))
+                     .apply(RequestOptions.overrideOf(newImageSize.width,newImageSize.height))
                      .submit().get()
                  list.add(bitmap)
              }
@@ -72,6 +72,13 @@ class MainActivityViewModel @Inject constructor(
          job.join()
          imagesBitmapList.value = list
          Log.d("MainActivity", "Images download ended")
+    }
+
+    private fun getNewImageSize(width: Int, height: Int): ImageSize {
+        if (width > height) {
+            return ImageSize(720,576)
+        }
+        return ImageSize(567,720)
     }
 
 }

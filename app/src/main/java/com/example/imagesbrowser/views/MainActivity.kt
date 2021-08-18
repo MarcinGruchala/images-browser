@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setObservers() {
         val imageBitmapListObserver = Observer<List<Bitmap>> {
-            if (viewModel.imagesBitmapList.value != null) {
+            if (viewModel.imagesBitmapList.value != null && viewModel.imagesBitmapList.value!!.isNotEmpty()) {
                 Log.d(TAG, "Image list: ${viewModel.imagesBitmapList.value}")
                 updateImagesList()
             }
@@ -62,6 +62,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun setClickListeners() {
         binding.btnRefreshList.setOnClickListener {
+            viewModel.imagesListResponseBody.value!!.clear()
+            viewModel.imagesBitmapList.value = listOf()
             viewModel.fetchData()
         }
     }
