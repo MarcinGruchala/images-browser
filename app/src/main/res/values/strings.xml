@@ -6,4 +6,5 @@
     <string name="tvHeight">Height: %1$d</string>
     <string name="tvDownloadUrl">Download url: %1$s</string>
     <string name="tvLoading">Loading...</string>
+    <string name="ivImageDescription">item image</string>
 </resources>
