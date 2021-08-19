@@ -1,6 +1,5 @@
 package com.example.imagesbrowser.views
 
-import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
@@ -21,6 +20,7 @@ import com.example.imagesbrowser.adapters.ImagesListAdapter
 import com.example.imagesbrowser.databinding.ActivityMainBinding
 import com.example.imagesbrowser.models.DownloadingImagesStatus
 import com.example.imagesbrowser.viewmodels.MainActivityViewModel
+import com.example.imagesbrowser.views.utils.AlertDialogsUtils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -32,12 +32,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var connectivityManager: ConnectivityManager
     private lateinit var networkCallback: ConnectivityManager.NetworkCallback
-    private lateinit var noInternetAlertDialog: AlertDialog
     private val viewModel: MainActivityViewModel by viewModels()
+    private lateinit var alertDialogsUtils: AlertDialogsUtils
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        alertDialogsUtils = AlertDialogsUtils(this)
         setNetworkConnectionVariables()
         registerNetworkCallback()
         setContentView(binding.root)
@@ -66,12 +67,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        noInternetAlertDialog = AlertDialog.Builder(this)
-            .setMessage(
-                getString(R.string.no_internet_connection_message)
-            )
-            .setPositiveButton("OK") { _, _ ->}
-            .create()
     }
 
     private fun registerNetworkCallback() {
@@ -97,11 +92,11 @@ class MainActivity : AppCompatActivity() {
         val isInternetConnectionObserver = Observer<Boolean> { status ->
             if (!status) {
                 Log.d(TAG,"Lost internet connection")
-                noInternetAlertDialog.show()
+                alertDialogsUtils.showNoInternetAlertDialog()
             } else {
                 Log.d(TAG,"Has internet connection")
                 if (viewModel.imagesListResponseBody.value == null) {
-                    noInternetAlertDialog.dismiss()
+                    alertDialogsUtils.dismissNoInternetAlertDialog()
                     viewModel.fetchData()
                 }
             }
@@ -124,7 +119,7 @@ class MainActivity : AppCompatActivity() {
             when(status) {
                 DownloadingImagesStatus.STARTED -> loadingDialog.show()
                 DownloadingImagesStatus.ENDED -> loadingDialog.dismiss()
-                DownloadingImagesStatus.ERROR -> showDownloadingDataErrorAlertDialog()
+                DownloadingImagesStatus.ERROR -> alertDialogsUtils.showDownloadingDataErrorAlertDialog()
                 else -> {}
             }
         }
@@ -152,19 +147,8 @@ class MainActivity : AppCompatActivity() {
                 viewModel.imagesBitmapList.value = listOf()
                 viewModel.fetchData()
             } else {
-                noInternetAlertDialog.show()
+                alertDialogsUtils.showNoInternetAlertDialog()
             }
         }
     }
-
-    private fun showDownloadingDataErrorAlertDialog() {
-        AlertDialog.Builder(this)
-            .setMessage(
-                getString(R.string.downloading_data_error_message)
-            )
-            .setPositiveButton("OK") { _, _ -> }
-            .create()
-            .show()
-    }
-
 }
