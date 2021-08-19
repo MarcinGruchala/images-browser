@@ -1,5 +1,6 @@
 package com.example.imagesbrowser.views
 
+import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
@@ -31,7 +32,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var connectivityManager: ConnectivityManager
     private lateinit var networkCallback: ConnectivityManager.NetworkCallback
+    private lateinit var noInternetAlertDialog: AlertDialog
     private val viewModel: MainActivityViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -43,6 +46,11 @@ class MainActivity : AppCompatActivity() {
         setClickListeners()
     }
 
+    override fun onStop() {
+        super.onStop()
+        unRegisterNetworkCallback()
+    }
+
     private fun setNetworkConnectionVariables() {
         connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         networkCallback = object : ConnectivityManager.NetworkCallback() {
@@ -51,12 +59,19 @@ class MainActivity : AppCompatActivity() {
                     viewModel.isInternetConnection.value = true
                 }
             }
+
             override fun onLost(network: Network) {
                 lifecycleScope.launch(Dispatchers.Main) {
                     viewModel.isInternetConnection.value = false
                 }
             }
         }
+        noInternetAlertDialog = AlertDialog.Builder(this)
+            .setMessage(
+                getString(R.string.no_internet_connection_message)
+            )
+            .setPositiveButton("OK") { _, _ ->}
+            .create()
     }
 
     private fun registerNetworkCallback() {
@@ -79,13 +94,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setObservers() {
-        val isInternetConnectionObserver = Observer<Boolean> { ststus ->
-            if (!ststus) {
+        val isInternetConnectionObserver = Observer<Boolean> { status ->
+            if (!status) {
                 Log.d(TAG,"Lost internet connection")
-                //show error message
+                noInternetAlertDialog.show()
             } else {
                 Log.d(TAG,"Has internet connection")
                 if (viewModel.imagesListResponseBody.value == null) {
+                    noInternetAlertDialog.dismiss()
                     viewModel.fetchData()
                 }
             }
@@ -129,10 +145,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun setClickListeners() {
         binding.btnRefreshList.setOnClickListener {
-            viewModel.imagesListResponseBody.value!!.clear()
-            viewModel.imagesBitmapList.value = listOf()
-            viewModel.fetchData()
+            if (viewModel.isInternetConnection.value != null &&
+                    viewModel.isInternetConnection.value == true) {
+                viewModel.imagesListResponseBody.value!!.clear()
+                viewModel.imagesBitmapList.value = listOf()
+                viewModel.fetchData()
+            } else {
+                noInternetAlertDialog.show()
+            }
         }
     }
-
 }
