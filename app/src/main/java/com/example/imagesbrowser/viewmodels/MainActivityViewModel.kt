@@ -14,6 +14,7 @@ import com.example.imagesbrowser.models.ImagesListResponse
 import com.example.imagesbrowser.repository.RepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
+import java.io.IOException
 import javax.inject.Inject
 
 
@@ -46,10 +47,17 @@ class MainActivityViewModel @Inject constructor(
         viewModelScope.launch {
             Log.d("MainActivity", "Images download start")
             downloadingImagesStatus.value = DownloadingImagesStatus.STARTED
-            val response = repository.getImageList(getPageNumber(), 20)
-            if (response.isSuccessful && response.body() != null ){
+            val response = try {
+                repository.getImageList(getPageNumber(), 20)
+            } catch (e: Exception) {
+                downloadingImagesStatus.value = DownloadingImagesStatus.ERROR
+                return@launch
+            }
+            if (response.isSuccessful && response.body() != null ) {
                 imagesListResponseBody.value = response.body()
                 downloadImagesBitmapList()
+            } else {
+                downloadingImagesStatus.value = DownloadingImagesStatus.ERROR
             }
         }
     }

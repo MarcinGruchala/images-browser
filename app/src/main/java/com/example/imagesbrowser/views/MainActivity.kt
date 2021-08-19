@@ -124,6 +124,7 @@ class MainActivity : AppCompatActivity() {
             when(status) {
                 DownloadingImagesStatus.STARTED -> loadingDialog.show()
                 DownloadingImagesStatus.ENDED -> loadingDialog.dismiss()
+                DownloadingImagesStatus.ERROR -> showDownloadingDataErrorAlertDialog()
                 else -> {}
             }
         }
@@ -155,4 +156,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun showDownloadingDataErrorAlertDialog() {
+        AlertDialog.Builder(this)
+            .setMessage(
+                getString(R.string.downloading_data_error_message)
+            )
+            .setPositiveButton("OK") { _, _ -> }
+            .create()
+            .show()
+    }
+
 }
