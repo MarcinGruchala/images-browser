@@ -5,7 +5,11 @@
     <string name="tvWidth">Width: %1$d</string>
     <string name="tvHeight">Height: %1$d</string>
     <string name="tvDownloadUrl">Download url: <u>%1$s</u> </string>
-    <string name="tvLoading">Loading...</string>
+    <string name="tvLoading">Loading…</string>
     <string name="ivImageDescription">item image</string>
     <string name="ivDetailedImageDescription">Detailed image</string>
+    <string name="no_internet_connection_message">You don\'t have an internet connection.
+        You won\'t be able to download images without an internet connection. </string>
+    <string name="downloading_data_error_message">There was an error downloading the images,
+        please try again using the refresh button or check your internet connection.</string>
 </resources>
