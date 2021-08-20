@@ -11,7 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.imagesbrowser.R
 import com.example.imagesbrowser.adapters.ImagesListAdapter
-import com.example.imagesbrowser.databinding.ActivityMainBinding
+import com.example.imagesbrowser.databinding.ActivityImagesListBinding
 import com.example.imagesbrowser.models.DownloadingImagesStatus
 import com.example.imagesbrowser.viewmodels.MainActivityViewModel
 import com.example.imagesbrowser.views.utils.AlertDialogsUtils
@@ -21,15 +21,15 @@ import dagger.hilt.android.AndroidEntryPoint
 private const val TAG = "MainActivity"
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
+class ImagesListActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityImagesListBinding
     private lateinit var connectivityManagerUtils: ConnectivityManagerUtils
     private lateinit var alertDialogsUtils: AlertDialogsUtils
     private val viewModel: MainActivityViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityImagesListBinding.inflate(layoutInflater)
         connectivityManagerUtils = ConnectivityManagerUtils(this,this,viewModel)
         alertDialogsUtils = AlertDialogsUtils(this)
         connectivityManagerUtils.registerNetworkCallback()

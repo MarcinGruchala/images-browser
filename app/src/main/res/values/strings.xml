@@ -12,4 +12,5 @@
         You won\'t be able to download images without an internet connection. </string>
     <string name="downloading_data_error_message">There was an error downloading the images,
         please try again using the refresh button or check your internet connection.</string>
+    <string name="refresh_list_button">refresh list button</string>
 </resources>
