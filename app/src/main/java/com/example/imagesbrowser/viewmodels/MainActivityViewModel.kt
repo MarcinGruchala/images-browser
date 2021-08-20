@@ -15,6 +15,7 @@ import com.example.imagesbrowser.repository.RepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import javax.inject.Inject
+import kotlin.random.Random
 
 private const val IMAGES_IN_LIST = 20
 private const val PAGES_LIMIT = 50
@@ -24,7 +25,7 @@ class MainActivityViewModel @Inject constructor(
     private val repository: RepositoryImpl
 ) : AndroidViewModel(application) {
 
-    private var currentPageNumber =  0
+    private var currentPageNumber =  Random.nextInt(1,51)
 
     val isInternetConnection: MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>(false)
@@ -34,7 +35,7 @@ class MainActivityViewModel @Inject constructor(
         MutableLiveData<ImagesListResponse>()
     }
 
-    val imagesBitmapList: MutableLiveData<List<Bitmap>> by lazy {
+    val imagesBitmapsList: MutableLiveData<List<Bitmap>> by lazy {
         MutableLiveData<List<Bitmap>>()
     }
 
@@ -84,7 +85,7 @@ class MainActivityViewModel @Inject constructor(
              }
          }
          job.join()
-         imagesBitmapList.value = list
+         imagesBitmapsList.value = list
          Log.d("MainActivity", "Images download ended")
          downloadingImagesStatus.value = DownloadingImagesStatus.ENDED
     }

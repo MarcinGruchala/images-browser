@@ -68,12 +68,12 @@ class MainActivity : AppCompatActivity() {
         viewModel.isInternetConnection.observe(this, isInternetConnectionObserver)
 
         val imageBitmapListObserver = Observer<List<Bitmap>> {
-            if (viewModel.imagesBitmapList.value != null && viewModel.imagesBitmapList.value!!.isNotEmpty()) {
-                Log.d(TAG, "Image list: ${viewModel.imagesBitmapList.value}")
+            if (viewModel.imagesBitmapsList.value != null && viewModel.imagesBitmapsList.value!!.isNotEmpty()) {
+                Log.d(TAG, "Image list: ${viewModel.imagesBitmapsList.value}")
                 updateImagesList()
             }
         }
-        viewModel.imagesBitmapList.observe(this, imageBitmapListObserver)
+        viewModel.imagesBitmapsList.observe(this, imageBitmapListObserver)
 
         val loadingDialog = Dialog(this).apply {
             setContentView(R.layout.dialog_loading)
@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity() {
     private fun updateImagesList() {
         binding.rvImagesList.adapter = ImagesListAdapter(
             viewModel.imagesListResponseBody.value!!,
-            viewModel.imagesBitmapList.value!!,
+            viewModel.imagesBitmapsList.value!!,
             itemClickListener = { item ->
                 Intent(this, ImageDetailsActivity::class.java).also {
                     it.putExtra("ITEM_DETAILS", item)
@@ -108,7 +108,7 @@ class MainActivity : AppCompatActivity() {
             if (viewModel.isInternetConnection.value != null &&
                     viewModel.isInternetConnection.value == true) {
                 viewModel.imagesListResponseBody.value!!.clear()
-                viewModel.imagesBitmapList.value = listOf()
+                viewModel.imagesBitmapsList.value = listOf()
                 viewModel.fetchData()
             } else {
                 alertDialogsUtils.showNoInternetAlertDialog()
