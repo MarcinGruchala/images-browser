@@ -1,3 +1,3 @@
-package com.example.imagesbrowser.models
+package com.example.imagesbrowser.models.remote
 
 class ImagesListResponse : ArrayList<ImagesListResponseItem>()

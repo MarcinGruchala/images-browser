@@ -30,7 +30,11 @@ class ImagesListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityImagesListBinding.inflate(layoutInflater)
-        connectivityManagerUtils = ConnectivityManagerUtils(this,this,viewModel)
+        connectivityManagerUtils = ConnectivityManagerUtils(
+            this,
+            this,
+            viewModel
+        )
         alertDialogsUtils = AlertDialogsUtils(this)
         connectivityManagerUtils.registerNetworkCallback()
         setContentView(binding.root)
@@ -83,7 +87,8 @@ class ImagesListActivity : AppCompatActivity() {
             when(status) {
                 DownloadingImagesStatus.STARTED -> loadingDialog.show()
                 DownloadingImagesStatus.ENDED -> loadingDialog.dismiss()
-                DownloadingImagesStatus.ERROR -> alertDialogsUtils.showDownloadingDataErrorAlertDialog()
+                DownloadingImagesStatus.ERROR ->
+                    alertDialogsUtils.showDownloadingDataErrorAlertDialog()
                 else -> {}
             }
         }

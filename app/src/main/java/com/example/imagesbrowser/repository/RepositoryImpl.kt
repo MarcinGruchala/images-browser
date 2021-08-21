@@ -1,6 +1,6 @@
 package com.example.imagesbrowser.repository
 
-import com.example.imagesbrowser.models.ImagesListResponse
+import com.example.imagesbrowser.models.remote.ImagesListResponse
 import com.example.imagesbrowser.webservice.PicsumService
 import retrofit2.Response
 

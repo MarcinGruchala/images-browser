@@ -4,11 +4,10 @@ import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.imagesbrowser.R
 import com.example.imagesbrowser.databinding.ItemImagesListBinding
-import com.example.imagesbrowser.models.ImagesListResponse
-import com.example.imagesbrowser.models.ImagesListResponseItem
+import com.example.imagesbrowser.models.remote.ImagesListResponse
+import com.example.imagesbrowser.models.remote.ImagesListResponseItem
 
 class ImagesListAdapter(
     private val imagesDataArray: ImagesListResponse,

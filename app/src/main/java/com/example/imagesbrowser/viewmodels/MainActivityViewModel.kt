@@ -10,7 +10,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.imagesbrowser.di.ImagesBrowserApplication
 import com.example.imagesbrowser.models.DownloadingImagesStatus
 import com.example.imagesbrowser.models.ImageSize
-import com.example.imagesbrowser.models.ImagesListResponse
+import com.example.imagesbrowser.models.remote.ImagesListResponse
 import com.example.imagesbrowser.repository.RepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
@@ -90,7 +90,10 @@ class MainActivityViewModel @Inject constructor(
          downloadingImagesStatus.value = DownloadingImagesStatus.ENDED
     }
 
-    private fun getNewImageSize(width: Int, height: Int): ImageSize {
+    private fun getNewImageSize(
+        width: Int,
+        height: Int
+    ): ImageSize {
         if (width > height) {
             return ImageSize(720,576)
         }
