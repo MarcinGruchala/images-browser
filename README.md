@@ -4,6 +4,8 @@ Android app that allows browsing images.
 
 # Demo
 
+<img src="readme-files/demo.gif" alt="drawing" width="250"/>
+
 # UI description
 
 ## Images list activity
