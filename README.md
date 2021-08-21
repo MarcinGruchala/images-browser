@@ -12,7 +12,7 @@ Android app that allows browsing images.
 
 Entry activity of the application. Shows to users images in a list. When the user clicks the refresh button app downloads 20 new images.
 
-<img src="readme-files/ImagesList1.png" alt="drawing" width="300"/>  <img src="readme-files/ImagesList2.png" alt="drawing" width="300"/> 
+<img src="readme-files/imagesList1.png" alt="drawing" width="300"/>  <img src="readme-files/ImagesList2.png" alt="drawing" width="300"/> 
 
 ## Image details activity
 
