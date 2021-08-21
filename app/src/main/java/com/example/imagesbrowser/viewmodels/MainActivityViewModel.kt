@@ -1,7 +1,6 @@
 package com.example.imagesbrowser.viewmodels
 
 import android.graphics.Bitmap
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -45,7 +44,6 @@ class MainActivityViewModel @Inject constructor(
 
     fun fetchData() {
         viewModelScope.launch {
-            Log.d("MainActivity", "Images download start")
             downloadingImagesStatus.value = DownloadingImagesStatus.STARTED
             val response = try {
                 repository.getImageList(getPageNumber(), IMAGES_IN_LIST)
@@ -86,7 +84,6 @@ class MainActivityViewModel @Inject constructor(
          }
          job.join()
          imagesBitmapsList.value = list
-         Log.d("MainActivity", "Images download ended")
          downloadingImagesStatus.value = DownloadingImagesStatus.ENDED
     }
 

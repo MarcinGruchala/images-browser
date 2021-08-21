@@ -4,7 +4,6 @@ import android.app.Dialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -17,8 +16,6 @@ import com.example.imagesbrowser.viewmodels.MainActivityViewModel
 import com.example.imagesbrowser.views.utils.AlertDialogsUtils
 import com.example.imagesbrowser.views.utils.ConnectivityManagerUtils
 import dagger.hilt.android.AndroidEntryPoint
-
-private const val TAG = "MainActivity"
 
 @AndroidEntryPoint
 class ImagesListActivity : AppCompatActivity() {
@@ -59,10 +56,8 @@ class ImagesListActivity : AppCompatActivity() {
     private fun setObservers() {
         val isInternetConnectionObserver = Observer<Boolean> { status ->
             if (!status) {
-                Log.d(TAG,"Lost internet connection")
                 alertDialogsUtils.showNoInternetAlertDialog()
             } else {
-                Log.d(TAG,"Has internet connection")
                 if (viewModel.imagesListResponseBody.value == null) {
                     alertDialogsUtils.dismissNoInternetAlertDialog()
                     viewModel.fetchData()
@@ -73,7 +68,6 @@ class ImagesListActivity : AppCompatActivity() {
 
         val imageBitmapListObserver = Observer<List<Bitmap>> {
             if (viewModel.imagesBitmapsList.value != null && viewModel.imagesBitmapsList.value!!.isNotEmpty()) {
-                Log.d(TAG, "Image list: ${viewModel.imagesBitmapsList.value}")
                 updateImagesList()
             }
         }
