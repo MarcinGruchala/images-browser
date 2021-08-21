@@ -1,31 +1,30 @@
 package com.example.imagesbrowser.viewmodels
 
-import android.app.Application
 import android.graphics.Bitmap
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.imagesbrowser.di.ImagesBrowserApplication
 import com.example.imagesbrowser.models.DownloadingImagesStatus
 import com.example.imagesbrowser.models.ImageSize
-import com.example.imagesbrowser.models.ImagesListResponse
+import com.example.imagesbrowser.models.remote.ImagesListResponse
 import com.example.imagesbrowser.repository.RepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
-import java.io.IOException
 import javax.inject.Inject
+import kotlin.random.Random
 
-
+private const val IMAGES_IN_LIST = 20
+private const val PAGES_LIMIT = 50
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
-    application: Application,
+    private val application: ImagesBrowserApplication,
     private val repository: RepositoryImpl
 ) : AndroidViewModel(application) {
-    private val applicationContext = application.applicationContext
 
-    var currentPageNumber =  0
+    private var currentPageNumber =  Random.nextInt(1,51)
 
     val isInternetConnection: MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>(false)
@@ -35,7 +34,7 @@ class MainActivityViewModel @Inject constructor(
         MutableLiveData<ImagesListResponse>()
     }
 
-    val imagesBitmapList: MutableLiveData<List<Bitmap>> by lazy {
+    val imagesBitmapsList: MutableLiveData<List<Bitmap>> by lazy {
         MutableLiveData<List<Bitmap>>()
     }
 
@@ -45,10 +44,9 @@ class MainActivityViewModel @Inject constructor(
 
     fun fetchData() {
         viewModelScope.launch {
-            Log.d("MainActivity", "Images download start")
             downloadingImagesStatus.value = DownloadingImagesStatus.STARTED
             val response = try {
-                repository.getImageList(getPageNumber(), 20)
+                repository.getImageList(getPageNumber(), IMAGES_IN_LIST)
             } catch (e: Exception) {
                 downloadingImagesStatus.value = DownloadingImagesStatus.ERROR
                 return@launch
@@ -63,7 +61,7 @@ class MainActivityViewModel @Inject constructor(
     }
 
     private fun getPageNumber():Int {
-        if (currentPageNumber < 51) {
+        if (currentPageNumber <= PAGES_LIMIT) {
             currentPageNumber += 1
             return currentPageNumber
         }
@@ -76,7 +74,7 @@ class MainActivityViewModel @Inject constructor(
          val job = viewModelScope.launch(Dispatchers.IO) {
              for (item in imagesListResponseBody.value!!) {
                  val newImageSize = getNewImageSize(item.width,item.height)
-                 val bitmap = Glide.with(applicationContext)
+                 val bitmap = Glide.with(application.applicationContext)
                      .asBitmap()
                      .load(item.download_url)
                      .apply(RequestOptions.overrideOf(newImageSize.width,newImageSize.height))
@@ -85,12 +83,14 @@ class MainActivityViewModel @Inject constructor(
              }
          }
          job.join()
-         imagesBitmapList.value = list
-         Log.d("MainActivity", "Images download ended")
+         imagesBitmapsList.value = list
          downloadingImagesStatus.value = DownloadingImagesStatus.ENDED
     }
 
-    private fun getNewImageSize(width: Int, height: Int): ImageSize {
+    private fun getNewImageSize(
+        width: Int,
+        height: Int
+    ): ImageSize {
         if (width > height) {
             return ImageSize(720,576)
         }

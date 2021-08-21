@@ -2,13 +2,12 @@ package com.example.imagesbrowser.views
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.method.LinkMovementMethod
 import androidx.core.content.ContextCompat
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.example.imagesbrowser.R
 import com.example.imagesbrowser.databinding.ActivityImageDetailsBinding
-import com.example.imagesbrowser.models.ImagesListResponseItem
+import com.example.imagesbrowser.models.remote.ImagesListResponseItem
 
 class ImageDetailsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityImageDetailsBinding
@@ -17,11 +16,18 @@ class ImageDetailsActivity : AppCompatActivity() {
         binding = ActivityImageDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setTextViews()
+        setUI()
     }
 
-    private fun setTextViews() {
+    private fun setUI() {
         val item = intent.getSerializableExtra("ITEM_DETAILS") as ImagesListResponseItem
+        setTextViews(item)
+        setImageView(item)
+    }
+
+    private fun setTextViews(
+        item: ImagesListResponseItem
+    ) {
         binding.apply {
             tvImageIdDetails.text = getString(
                 R.string.tv_image_id,
@@ -44,6 +50,12 @@ class ImageDetailsActivity : AppCompatActivity() {
                 item.download_url
             )
         }
+
+    }
+
+    private fun setImageView(
+        item: ImagesListResponseItem
+    ) {
         val loadingDrawable = CircularProgressDrawable(this)
         loadingDrawable.strokeWidth = 10f
         loadingDrawable.centerRadius = 50f
