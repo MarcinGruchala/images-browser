@@ -67,7 +67,8 @@ class ImagesListActivity : AppCompatActivity() {
         viewModel.isInternetConnection.observe(this, isInternetConnectionObserver)
 
         val imageBitmapListObserver = Observer<List<Bitmap>> {
-            if (viewModel.imagesBitmapsList.value != null && viewModel.imagesBitmapsList.value!!.isNotEmpty()) {
+            if (viewModel.imagesBitmapsList.value != null &&
+                viewModel.imagesBitmapsList.value!!.isNotEmpty()) {
                 updateImagesList()
             }
         }
