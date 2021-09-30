@@ -1,4 +1,4 @@
-package com.example.imagesbrowser.di
+package com.example.imagesbrowser.application
 
 import android.content.Context
 import dagger.Module

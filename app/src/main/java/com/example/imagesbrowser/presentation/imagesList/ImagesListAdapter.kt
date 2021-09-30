@@ -1,13 +1,13 @@
-package com.example.imagesbrowser.adapters
+package com.example.imagesbrowser.presentation.imagesList
 
 import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.imagesbrowser.networking.ImagesListResponse
 import com.example.imagesbrowser.R
 import com.example.imagesbrowser.databinding.ItemImagesListBinding
-import com.example.imagesbrowser.models.remote.ImagesListResponse
-import com.example.imagesbrowser.models.remote.ImagesListResponseItem
+import com.example.imagesbrowser.networking.ImagesListResponseItem
 
 class ImagesListAdapter(
     private val imagesDataArray: ImagesListResponse,

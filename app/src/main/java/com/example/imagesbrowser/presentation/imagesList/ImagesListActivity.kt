@@ -1,4 +1,4 @@
-package com.example.imagesbrowser.views
+package com.example.imagesbrowser.presentation.imagesList
 
 import android.app.Dialog
 import android.content.Intent
@@ -8,13 +8,12 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.imagesbrowser.R
-import com.example.imagesbrowser.adapters.ImagesListAdapter
+import com.example.imagesbrowser.*
 import com.example.imagesbrowser.databinding.ActivityImagesListBinding
-import com.example.imagesbrowser.models.DownloadingImagesStatus
-import com.example.imagesbrowser.viewmodels.MainActivityViewModel
-import com.example.imagesbrowser.views.utils.AlertDialogsUtils
-import com.example.imagesbrowser.views.utils.ConnectivityManagerUtils
+import com.example.imagesbrowser.presentation.common.DownloadingImagesStatus
+import com.example.imagesbrowser.presentation.imageDetails.ImageDetailsActivity
+import com.example.imagesbrowser.presentation.common.AlertDialogsUtils
+import com.example.imagesbrowser.presentation.common.ConnectivityManagerUtils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

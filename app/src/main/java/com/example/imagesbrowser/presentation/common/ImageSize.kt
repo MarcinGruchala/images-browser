@@ -1,4 +1,4 @@
-package com.example.imagesbrowser.models
+package com.example.imagesbrowser.presentation.common
 
 data class ImageSize(
     val width: Int,

@@ -1,4 +1,4 @@
-package com.example.imagesbrowser.views.utils
+package com.example.imagesbrowser.presentation.common
 
 import android.app.AlertDialog
 import android.content.Context

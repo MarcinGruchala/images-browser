@@ -1,6 +1,5 @@
-package com.example.imagesbrowser.webservice
+package com.example.imagesbrowser.networking
 
-import com.example.imagesbrowser.models.remote.ImagesListResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

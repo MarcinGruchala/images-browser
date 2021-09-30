@@ -1,4 +1,4 @@
-package com.example.imagesbrowser.views.utils
+package com.example.imagesbrowser.presentation.common
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -7,7 +7,7 @@ import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
-import com.example.imagesbrowser.viewmodels.MainActivityViewModel
+import com.example.imagesbrowser.presentation.imagesList.MainActivityViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

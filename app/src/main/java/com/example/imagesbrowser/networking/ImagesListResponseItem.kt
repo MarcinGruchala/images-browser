@@ -1,4 +1,4 @@
-package com.example.imagesbrowser.models.remote
+package com.example.imagesbrowser.networking
 
 import java.io.Serializable
 

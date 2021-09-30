@@ -1,7 +1,7 @@
 package com.example.imagesbrowser.repository
 
-import com.example.imagesbrowser.models.remote.ImagesListResponse
-import com.example.imagesbrowser.webservice.PicsumService
+import com.example.imagesbrowser.networking.ImagesListResponse
+import com.example.imagesbrowser.networking.PicsumService
 import retrofit2.Response
 
 class RepositoryImpl(

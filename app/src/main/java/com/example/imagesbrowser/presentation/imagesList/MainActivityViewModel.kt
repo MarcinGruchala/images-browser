@@ -1,4 +1,4 @@
-package com.example.imagesbrowser.viewmodels
+package com.example.imagesbrowser.presentation.imagesList
 
 import android.graphics.Bitmap
 import androidx.lifecycle.AndroidViewModel
@@ -6,10 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.example.imagesbrowser.di.ImagesBrowserApplication
-import com.example.imagesbrowser.models.DownloadingImagesStatus
-import com.example.imagesbrowser.models.ImageSize
-import com.example.imagesbrowser.models.remote.ImagesListResponse
+import com.example.imagesbrowser.application.ImagesBrowserApplication
+import com.example.imagesbrowser.networking.ImagesListResponse
+import com.example.imagesbrowser.presentation.common.DownloadingImagesStatus
+import com.example.imagesbrowser.presentation.common.ImageSize
 import com.example.imagesbrowser.repository.RepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
