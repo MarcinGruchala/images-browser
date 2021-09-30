@@ -1,7 +1,6 @@
 package com.example.imagesbrowser.repository
 
-import com.example.imagesbrowser.repository.RepositoryImpl
-import com.example.imagesbrowser.networking.PicsumService
+import com.example.imagesbrowser.networking.service.PicsumService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

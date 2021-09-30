@@ -1,5 +1,6 @@
 package com.example.imagesbrowser.networking
 
+import com.example.imagesbrowser.networking.service.PicsumService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

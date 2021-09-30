@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.imagesbrowser.application.ImagesBrowserApplication
-import com.example.imagesbrowser.networking.ImagesListResponse
+import com.example.imagesbrowser.networking.model.ImagesListResponse
 import com.example.imagesbrowser.presentation.common.DownloadingImagesStatus
 import com.example.imagesbrowser.presentation.common.ImageSize
 import com.example.imagesbrowser.repository.RepositoryImpl

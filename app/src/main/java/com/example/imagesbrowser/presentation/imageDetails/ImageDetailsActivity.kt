@@ -7,7 +7,7 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.example.imagesbrowser.R
 import com.example.imagesbrowser.databinding.ActivityImageDetailsBinding
-import com.example.imagesbrowser.networking.ImagesListResponseItem
+import com.example.imagesbrowser.networking.model.ImagesListResponseItem
 
 class ImageDetailsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityImageDetailsBinding
