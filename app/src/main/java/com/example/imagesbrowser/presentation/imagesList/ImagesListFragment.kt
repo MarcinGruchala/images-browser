@@ -4,54 +4,40 @@ import android.app.Dialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.imagesbrowser.*
-import com.example.imagesbrowser.databinding.ActivityImagesListBinding
+import androidx.navigation.Navigation
+import com.example.imagesbrowser.R
+import com.example.imagesbrowser.databinding.FragmentImagesListBinding
+import com.example.imagesbrowser.presentation.common.AlertDialogsUtils
 import com.example.imagesbrowser.presentation.common.DownloadingImagesStatus
 import com.example.imagesbrowser.presentation.imageDetails.ImageDetailsActivity
-import com.example.imagesbrowser.presentation.common.AlertDialogsUtils
-import com.example.imagesbrowser.presentation.common.ConnectivityManagerUtils
 import com.example.imagesbrowser.presentation.main.MainActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ImagesListActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityImagesListBinding
-    private val viewModel: MainActivityViewModel by viewModels()
+class ImagesListFragment: Fragment() {
+    private lateinit var binding: FragmentImagesListBinding
+    private val viewModel: MainActivityViewModel by activityViewModels()
 
-    private lateinit var connectivityManagerUtils: ConnectivityManagerUtils
     private lateinit var alertDialogsUtils: AlertDialogsUtils
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityImagesListBinding.inflate(layoutInflater)
-        connectivityManagerUtils = ConnectivityManagerUtils(
-            this,
-            this,
-            viewModel
-        )
-        alertDialogsUtils = AlertDialogsUtils(this)
-        connectivityManagerUtils.registerNetworkCallback()
-        setContentView(binding.root)
-        setImagesList()
-        setObservers()
-        setClickListeners()
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentImagesListBinding.inflate(inflater,container,false)
+        alertDialogsUtils = AlertDialogsUtils(requireContext())
+        return  binding.root
     }
 
-    override fun onStop() {
-        super.onStop()
-        connectivityManagerUtils.unRegisterNetworkCallback()
-    }
-
-    private fun setImagesList() {
-        binding.rvImagesList.layoutManager = LinearLayoutManager(
-            this,
-            LinearLayoutManager.VERTICAL,
-            false
-        )
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
     }
 
     private fun setObservers() {
@@ -75,7 +61,7 @@ class ImagesListActivity : AppCompatActivity() {
         }
         viewModel.imagesBitmapsList.observe(this, imageBitmapListObserver)
 
-        val loadingDialog = Dialog(this).apply {
+        val loadingDialog = Dialog(requireContext()).apply {
             setContentView(R.layout.dialog_loading)
             setCancelable(false)
         }
@@ -97,9 +83,8 @@ class ImagesListActivity : AppCompatActivity() {
             viewModel.imagesBitmapsList.value!!,
             itemClickListener = { item ->
                 viewModel.imageDetails.value = item
-                Intent(this, ImageDetailsActivity::class.java).also {
-                    it.putExtra("ITEM_DETAILS", item)
-                    startActivity(it)
+                view?.let {
+                    Navigation.findNavController(it).navigate(R.id.action_imageListFragment_to_imageDetailsFragment)
                 }
             }
         )
@@ -108,7 +93,7 @@ class ImagesListActivity : AppCompatActivity() {
     private fun setClickListeners() {
         binding.btnRefreshList.setOnClickListener {
             if (viewModel.isInternetConnection.value != null &&
-                    viewModel.isInternetConnection.value == true) {
+                viewModel.isInternetConnection.value == true) {
                 viewModel.imagesListResponseBody.value!!.clear()
                 viewModel.imagesBitmapsList.value = listOf()
                 viewModel.fetchData()
@@ -117,4 +102,5 @@ class ImagesListActivity : AppCompatActivity() {
             }
         }
     }
+
 }

@@ -1,4 +1,4 @@
-package com.example.imagesbrowser.presentation.imagesList
+package com.example.imagesbrowser.presentation.main
 
 import android.graphics.Bitmap
 import androidx.lifecycle.AndroidViewModel
@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.imagesbrowser.application.ImagesBrowserApplication
 import com.example.imagesbrowser.networking.model.ImagesListResponse
+import com.example.imagesbrowser.networking.model.ImagesListResponseItem
 import com.example.imagesbrowser.presentation.common.DownloadingImagesStatus
 import com.example.imagesbrowser.presentation.common.ImageSize
 import com.example.imagesbrowser.repository.RepositoryImpl
@@ -28,6 +29,10 @@ class MainActivityViewModel @Inject constructor(
 
     val isInternetConnection: MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>(false)
+    }
+
+    val imageDetails: MutableLiveData<ImagesListResponseItem> by lazy {
+        MutableLiveData<ImagesListResponseItem>()
     }
 
     val imagesListResponseBody: MutableLiveData<ImagesListResponse> by lazy {

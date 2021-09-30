@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ProjectPlainTextFileTypeManager">
-    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/loading_bar1.xml" />
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/dev/my_projects/images-browser-android/images-browser/app/src/main/res/layout-land/fragment_image_details.xml" value="0.2786458333333333" />
+        <entry key="..\:/dev/my_projects/images-browser-android/images-browser/app/src/main/res/layout/activity_image_details.xml" value="0.36666666666666664" />
+        <entry key="..\:/dev/my_projects/images-browser-android/images-browser/app/src/main/res/layout/activity_images_list.xml" value="0.36666666666666664" />
+        <entry key="..\:/dev/my_projects/images-browser-android/images-browser/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/dev/my_projects/images-browser-android/images-browser/app/src/main/res/layout/fragment_images_list.xml" value="0.36666666666666664" />
+      </map>
+    </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
