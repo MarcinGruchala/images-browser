@@ -2,9 +2,9 @@ package com.example.imagesbrowser.presentation.base
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.imagesbrowser.presentation.main.MainActivityViewModel
+import com.example.imagesbrowser.presentation.main.MainViewModel
 
 open class BaseFragment: Fragment() {
 
-    protected val viewModel: MainActivityViewModel by activityViewModels()
+    protected val mainViewModel: MainViewModel by activityViewModels()
 }

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.example.imagesbrowser.R
@@ -16,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ImageDetailsFragment : BaseFragment() {
     private lateinit var binding: FragmentImageDetailsBinding
-//    private val viewModel: MainActivityViewModel by activityViewModels()
+    private val imageDetailsViewModel: ImageDetailsViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +34,7 @@ class ImageDetailsFragment : BaseFragment() {
     }
 
     private fun setUI() {
-        val item = viewModel.imageDetails.value
+        val item = mainViewModel.imageDetails.value
         item?.let {
             setTextViews(item)
             setImageView(item)

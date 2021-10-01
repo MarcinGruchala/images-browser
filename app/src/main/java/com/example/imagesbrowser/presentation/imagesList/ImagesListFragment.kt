@@ -3,7 +3,6 @@ package com.example.imagesbrowser.presentation.imagesList
 import android.app.Dialog
 import android.graphics.Bitmap
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,12 +15,12 @@ import com.example.imagesbrowser.databinding.FragmentImagesListBinding
 import com.example.imagesbrowser.presentation.base.BaseFragment
 import com.example.imagesbrowser.presentation.common.AlertDialogsUtils
 import com.example.imagesbrowser.presentation.common.DownloadingImagesStatus
-import com.example.imagesbrowser.presentation.main.MainActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ImagesListFragment : BaseFragment() {
     private lateinit var binding: FragmentImagesListBinding
+    private val imagesListViewModel: ImagesListViewModel by activityViewModels()
 
     private lateinit var alertDialogsUtils: AlertDialogsUtils
 
@@ -56,21 +55,21 @@ class ImagesListFragment : BaseFragment() {
             if (!status) {
                 alertDialogsUtils.showNoInternetAlertDialog()
             } else {
-                if (viewModel.imagesListResponseBody.value == null) {
+                if (imagesListViewModel.imagesListResponseBody.value == null) {
                     alertDialogsUtils.dismissNoInternetAlertDialog()
-                    viewModel.fetchData()
+                    imagesListViewModel.fetchData()
                 }
             }
         }
-        viewModel.isInternetConnection.observe(requireActivity(), isInternetConnectionObserver)
+        mainViewModel.isInternetConnection.observe(requireActivity(), isInternetConnectionObserver)
 
         val imageBitmapListObserver = Observer<List<Bitmap>> {
-            if (viewModel.imagesBitmapsList.value != null &&
-                viewModel.imagesBitmapsList.value!!.isNotEmpty()) {
+            if (imagesListViewModel.imagesBitmapsList.value != null &&
+                imagesListViewModel.imagesBitmapsList.value!!.isNotEmpty()) {
                 updateImagesList()
             }
         }
-        viewModel.imagesBitmapsList.observe(requireActivity(), imageBitmapListObserver)
+        imagesListViewModel.imagesBitmapsList.observe(requireActivity(), imageBitmapListObserver)
 
         val loadingDialog = Dialog(requireContext()).apply {
             setContentView(R.layout.dialog_loading)
@@ -85,15 +84,15 @@ class ImagesListFragment : BaseFragment() {
                 else -> {}
             }
         }
-        viewModel.downloadingImagesStatus.observe(requireActivity(),downloadingImagesStatusObserver)
+        imagesListViewModel.downloadingImagesStatus.observe(requireActivity(),downloadingImagesStatusObserver)
     }
 
     private fun updateImagesList() {
         binding.rvImagesList.adapter = ImagesListAdapter(
-            viewModel.imagesListResponseBody.value!!,
-            viewModel.imagesBitmapsList.value!!,
+            imagesListViewModel.imagesListResponseBody.value!!,
+            imagesListViewModel.imagesBitmapsList.value!!,
             itemClickListener = { item ->
-                viewModel.imageDetails.value = item
+                mainViewModel.imageDetails.value = item
                 view?.let {
                     Navigation.findNavController(it).navigate(R.id.action_imagesListFragment_to_imageDetailsFragment)
                 }
@@ -103,11 +102,11 @@ class ImagesListFragment : BaseFragment() {
 
     private fun setClickListeners() {
         binding.btnRefreshList.setOnClickListener {
-            if (viewModel.isInternetConnection.value != null &&
-                viewModel.isInternetConnection.value == true) {
-                viewModel.imagesListResponseBody.value!!.clear()
-                viewModel.imagesBitmapsList.value = listOf()
-                viewModel.fetchData()
+            if (mainViewModel.isInternetConnection.value != null &&
+                mainViewModel.isInternetConnection.value == true) {
+                imagesListViewModel.imagesListResponseBody.value!!.clear()
+                imagesListViewModel.imagesBitmapsList.value = listOf()
+                imagesListViewModel.fetchData()
             } else {
                 alertDialogsUtils.showNoInternetAlertDialog()
             }

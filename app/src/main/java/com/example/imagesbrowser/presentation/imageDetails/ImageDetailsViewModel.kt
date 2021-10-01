@@ -1,18 +1,13 @@
-package com.example.imagesbrowser.presentation.main
+package com.example.imagesbrowser.presentation.imageDetails
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.imagesbrowser.networking.model.ImagesListResponseItem
 
-class MainViewModel: ViewModel() {
-
-    val isInternetConnection: MutableLiveData<Boolean> by lazy {
-        MutableLiveData<Boolean>(false)
-    }
+class ImageDetailsViewModel: ViewModel() {
 
     val imageDetails: MutableLiveData<ImagesListResponseItem> by lazy {
         MutableLiveData<ImagesListResponseItem>()
     }
-
 
 }

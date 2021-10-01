@@ -7,14 +7,14 @@ import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
-import com.example.imagesbrowser.presentation.main.MainActivityViewModel
+import com.example.imagesbrowser.presentation.main.MainViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ConnectivityManagerUtils(
     context: Context,
     lifecycleOwner: LifecycleOwner,
-    viewModel: MainActivityViewModel
+    viewModel: MainViewModel
 ) {
     private val connectivityManager = context.getSystemService(
         Context.CONNECTIVITY_SERVICE
