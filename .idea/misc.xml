@@ -7,7 +7,10 @@
         <entry key="..\:/dev/my_projects/images-browser-android/images-browser/app/src/main/res/layout/activity_image_details.xml" value="0.36666666666666664" />
         <entry key="..\:/dev/my_projects/images-browser-android/images-browser/app/src/main/res/layout/activity_images_list.xml" value="0.36666666666666664" />
         <entry key="..\:/dev/my_projects/images-browser-android/images-browser/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
-        <entry key="..\:/dev/my_projects/images-browser-android/images-browser/app/src/main/res/layout/fragment_images_list.xml" value="0.36666666666666664" />
+        <entry key="..\:/dev/my_projects/images-browser-android/images-browser/app/src/main/res/layout/fragment_image_details.xml" value="0.20520833333333333" />
+        <entry key="..\:/dev/my_projects/images-browser-android/images-browser/app/src/main/res/layout/fragment_images_list.xml" value="0.1" />
+        <entry key="..\:/dev/my_projects/images-browser-android/images-browser/app/src/main/res/layout/my_fragment_image_details.xml" value="0.36666666666666664" />
+        <entry key="..\:/dev/my_projects/images-browser-android/images-browser/app/src/main/res/layout/my_fragment_images_list.xml" value="0.1" />
       </map>
     </option>
   </component>

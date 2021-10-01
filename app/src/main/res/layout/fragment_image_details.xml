@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purple_background"
     app:layoutDescription="@xml/activity_image_details_scene"
-    tools:context=".presentation.imageDetails.ImageDetailsActivity">
+    tools:context=".presentation.imageDetails.ImageDetailsFragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvImageDetails"
@@ -124,4 +123,5 @@
             tools:srcCompat="@tools:sample/avatars" />
 
     </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.motion.widget.MotionLayout>

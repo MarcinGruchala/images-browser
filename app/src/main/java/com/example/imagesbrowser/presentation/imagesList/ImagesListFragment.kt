@@ -1,43 +1,55 @@
 package com.example.imagesbrowser.presentation.imagesList
 
 import android.app.Dialog
-import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.imagesbrowser.R
 import com.example.imagesbrowser.databinding.FragmentImagesListBinding
 import com.example.imagesbrowser.presentation.common.AlertDialogsUtils
 import com.example.imagesbrowser.presentation.common.DownloadingImagesStatus
-import com.example.imagesbrowser.presentation.imageDetails.ImageDetailsActivity
 import com.example.imagesbrowser.presentation.main.MainActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ImagesListFragment: Fragment() {
+class ImagesListFragment : Fragment() {
     private lateinit var binding: FragmentImagesListBinding
+
     private val viewModel: MainActivityViewModel by activityViewModels()
 
     private lateinit var alertDialogsUtils: AlertDialogsUtils
 
+
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentImagesListBinding.inflate(inflater,container,false)
+        binding = FragmentImagesListBinding.inflate(inflater, container, false)
         alertDialogsUtils = AlertDialogsUtils(requireContext())
-        return  binding.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setImagesList()
+        setObservers()
+        setClickListeners()
+    }
+
+    private fun setImagesList() {
+        binding.rvImagesList.layoutManager = LinearLayoutManager(
+            requireContext(),
+            LinearLayoutManager.VERTICAL,
+            false
+        )
     }
 
     private fun setObservers() {
@@ -51,7 +63,7 @@ class ImagesListFragment: Fragment() {
                 }
             }
         }
-        viewModel.isInternetConnection.observe(this, isInternetConnectionObserver)
+        viewModel.isInternetConnection.observe(requireActivity(), isInternetConnectionObserver)
 
         val imageBitmapListObserver = Observer<List<Bitmap>> {
             if (viewModel.imagesBitmapsList.value != null &&
@@ -59,7 +71,7 @@ class ImagesListFragment: Fragment() {
                 updateImagesList()
             }
         }
-        viewModel.imagesBitmapsList.observe(this, imageBitmapListObserver)
+        viewModel.imagesBitmapsList.observe(requireActivity(), imageBitmapListObserver)
 
         val loadingDialog = Dialog(requireContext()).apply {
             setContentView(R.layout.dialog_loading)
@@ -74,7 +86,7 @@ class ImagesListFragment: Fragment() {
                 else -> {}
             }
         }
-        viewModel.downloadingImagesStatus.observe(this,downloadingImagesStatusObserver)
+        viewModel.downloadingImagesStatus.observe(requireActivity(),downloadingImagesStatusObserver)
     }
 
     private fun updateImagesList() {
@@ -84,7 +96,7 @@ class ImagesListFragment: Fragment() {
             itemClickListener = { item ->
                 viewModel.imageDetails.value = item
                 view?.let {
-                    Navigation.findNavController(it).navigate(R.id.action_imageListFragment_to_imageDetailsFragment)
+                    Navigation.findNavController(it).navigate(R.id.action_imagesListFragment_to_imageDetailsFragment)
                 }
             }
         )
@@ -102,5 +114,6 @@ class ImagesListFragment: Fragment() {
             }
         }
     }
+
 
 }
