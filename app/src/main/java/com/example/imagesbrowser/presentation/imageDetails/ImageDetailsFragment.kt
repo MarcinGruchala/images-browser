@@ -1,25 +1,22 @@
 package com.example.imagesbrowser.presentation.imageDetails
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.activityViewModels
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.example.imagesbrowser.R
 import com.example.imagesbrowser.databinding.FragmentImageDetailsBinding
 import com.example.imagesbrowser.networking.model.ImagesListResponseItem
-import com.example.imagesbrowser.presentation.common.AlertDialogsUtils
-import com.example.imagesbrowser.presentation.main.MainActivityViewModel
+import com.example.imagesbrowser.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ImageDetailsFragment : Fragment() {
+class ImageDetailsFragment : BaseFragment() {
     private lateinit var binding: FragmentImageDetailsBinding
-    private val viewModel: MainActivityViewModel by activityViewModels()
+//    private val viewModel: MainActivityViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

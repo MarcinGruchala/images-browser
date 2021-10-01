@@ -13,16 +13,15 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.imagesbrowser.R
 import com.example.imagesbrowser.databinding.FragmentImagesListBinding
+import com.example.imagesbrowser.presentation.base.BaseFragment
 import com.example.imagesbrowser.presentation.common.AlertDialogsUtils
 import com.example.imagesbrowser.presentation.common.DownloadingImagesStatus
 import com.example.imagesbrowser.presentation.main.MainActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ImagesListFragment : Fragment() {
+class ImagesListFragment : BaseFragment() {
     private lateinit var binding: FragmentImagesListBinding
-
-    private val viewModel: MainActivityViewModel by activityViewModels()
 
     private lateinit var alertDialogsUtils: AlertDialogsUtils
 
